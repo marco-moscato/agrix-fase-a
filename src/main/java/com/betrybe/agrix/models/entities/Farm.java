@@ -15,7 +15,7 @@ public class Farm {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Long id;
   private String name;
   private Double size;
 
@@ -28,17 +28,17 @@ public class Farm {
    * @param name nome da fazenda
    * @param size tamanho da fazenda
    */
-  public Farm(int id, String name, Double size) {
+  public Farm(Long id, String name, Double size) {
     this.id = id;
     this.name = name;
     this.size = size;
   }
 
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
