@@ -1,5 +1,6 @@
 package com.betrybe.agrix.services;
 
+import com.betrybe.agrix.exceptions.FarmNotFoundException;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.models.repositories.FarmRepository;
 import java.util.List;
@@ -27,7 +28,8 @@ public class FarmService {
     return farmRepository.findAll();
   }
 
-  public Optional<Farm> getFarmById(Long id) {
-    return farmRepository.findById(id);
+  public Farm getFarmById(Long id) {
+    return farmRepository.findById(id)
+        .orElseThrow(FarmNotFoundException::new);
   }
 }
