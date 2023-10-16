@@ -1,10 +1,13 @@
 package com.betrybe.agrix.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 
 /**
  * Classe Farm representa uma fazenda.
@@ -18,6 +21,10 @@ public class Farm {
   private Long id;
   private String name;
   private Double size;
+
+  @OneToMany(mappedBy = "farm")
+  @JsonIgnore
+  private List<Crop> crops;
 
   public Farm() {}
 
