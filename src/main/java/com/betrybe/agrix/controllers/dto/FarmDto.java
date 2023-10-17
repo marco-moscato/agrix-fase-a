@@ -11,6 +11,12 @@ import com.betrybe.agrix.models.entities.Farm;
  */
 public record FarmDto(Long id, String name, Double size) {
 
+  /**
+   * Método converte de entidade para DTO.
+   *
+   * @param farm objeto do tipo Farm
+   * @return objeto do tipo FarmDto
+   */
   public static FarmDto fromEntity(Farm farm) {
     return new FarmDto(
         farm.getId(),
@@ -18,6 +24,12 @@ public record FarmDto(Long id, String name, Double size) {
         farm.getSize()
     );
   }
+
+  /**
+   * Método converte um objeto do tipo DTO para entidade.
+   *
+   * @return um objeto do tipo Farm
+   */
   public Farm toEntity() {
     Farm farm = new Farm();
     farm.setName(name);
