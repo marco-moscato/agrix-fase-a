@@ -1,16 +1,17 @@
 package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.controllers.dto.FarmDto;
+import com.betrybe.agrix.exceptions.FarmNotFoundException;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.services.FarmService;
 import java.util.List;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,9 +34,9 @@ public class FarmController {
    * @return status 201 e a fazenda criada com id, name e size
    */
   @PostMapping()
-  public ResponseEntity<Farm> createFarm(@RequestBody FarmDto farmDto) {
-    Farm newFarm = farmService.insertFarm(farmDto.toFarm());
-    return ResponseEntity.status(HttpStatus.CREATED).body(newFarm);
+  @ResponseStatus(HttpStatus.CREATED)
+  public Farm createFarm(@RequestBody FarmDto farmDto) {
+    return farmService.insertFarm(farmDto.toEntity());
   }
 
   @GetMapping
@@ -46,12 +47,13 @@ public class FarmController {
   /**
    * Método busca uma fazenda pelo id.
    *
-   * @param farmId id da fazenda
+   * @param id id da fazenda
    * @return dados da fazenda ou erro 404 not found
    */
-  @GetMapping("/{farmId}")
-  public ResponseEntity<Farm> getFarmById(@PathVariable Long farmId) {
-    Farm farm = farmService.getFarmById((farmId));
-    return ResponseEntity.ok(farm);
+  @GetMapping("/{id}")
+  public FarmDto findFarmById(@PathVariable("id") long id)
+      throws FarmNotFoundException {
+    return FarmDto.fromEntity(farmService.findFarmById(id));
   }
+
 }
