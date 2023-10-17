@@ -23,7 +23,6 @@ public class Farm {
   private Double size;
 
   @OneToMany(mappedBy = "farm")
-  @JsonIgnore
   private List<Crop> crops;
 
   public Farm() {}
