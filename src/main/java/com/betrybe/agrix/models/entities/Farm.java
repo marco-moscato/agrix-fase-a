@@ -64,4 +64,12 @@ public class Farm {
   public void setSize(Double size) {
     this.size = size;
   }
+
+  public List<Crop> getCrops() {
+    return crops;
+  }
+
+  public void setCrops(List<Crop> crops) {
+    this.crops = crops;
+  }
 }
