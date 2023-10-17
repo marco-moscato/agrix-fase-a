@@ -85,4 +85,20 @@ public class FarmController {
     CropDto cropDto = CropDto.fromEntity(savedCrop);
     return ResponseEntity.status(HttpStatus.CREATED).body(cropDto);
   }
+
+  /**
+   * Método procura pelas plantações da fazenda.
+   *
+   * @param farmId id da fazenda
+   * @return lista de plantações da fazenda
+   * @throws FarmNotFoundException exceção caso fazenda não seja encontrada
+   */
+  @GetMapping("/{farmId}/crops")
+  public List<CropDto> findAllCrops(@PathVariable("farmId") long farmId)
+      throws FarmNotFoundException {
+    List<Crop> crops = farmService.findAllCrops(farmId);
+    return crops.stream()
+        .map(CropDto::fromEntity)
+        .toList();
+  }
 }

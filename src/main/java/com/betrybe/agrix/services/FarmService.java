@@ -50,4 +50,9 @@ public class FarmService {
     crop.setFarm(farm);
     return cropService.create(crop);
   }
+
+  public List<Crop> findAllCrops(long farmId) throws FarmNotFoundException {
+    Farm farm = findFarmById(farmId);
+    return farm.getCrops();
+  }
 }
