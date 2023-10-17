@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,18 +33,27 @@ public class FarmController {
   /**
    * Método createFarm cria uma nova fazenda.
    *
-   * @param farmDto uma fazenda no formato Dto
+   * @param newFarm uma fazenda no formato Dto
    * @return status 201 e a fazenda criada com id, name e size
    */
   @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)
-  public Farm createFarm(@RequestBody FarmDto farmDto) {
-    return farmService.insertFarm(farmDto.toEntity());
+  public FarmDto createFarm(@RequestBody FarmDto newFarm) {
+    Farm savedFarm = farmService.insertFarm(newFarm.toEntity());
+    return FarmDto.fromEntity(savedFarm);
   }
 
+  /**
+   * Método busca por todas as fazendas.
+   *
+   * @return uma lista de fazendas com status 200
+   */
   @GetMapping
-  public List<Farm> getAllFarms() {
-    return farmService.getAllFarms();
+  public List<FarmDto> getAllFarms() {
+    List<Farm> farms = farmService.getAllFarms();
+    return farms.stream()
+        .map(FarmDto::fromEntity)
+        .toList();
   }
 
   /**
