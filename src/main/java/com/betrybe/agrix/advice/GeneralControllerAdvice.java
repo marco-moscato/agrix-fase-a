@@ -1,7 +1,5 @@
 package com.betrybe.agrix.advice;
 
-import com.betrybe.agrix.exceptions.CropNotFoundException;
-import com.betrybe.agrix.exceptions.FarmNotFoundException;
 import com.betrybe.agrix.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
