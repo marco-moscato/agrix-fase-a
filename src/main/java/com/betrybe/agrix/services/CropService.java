@@ -1,5 +1,6 @@
 package com.betrybe.agrix.services;
 
+import com.betrybe.agrix.exceptions.CropNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.repositories.CropRepository;
 import java.util.List;
@@ -27,5 +28,10 @@ public class CropService {
 
   public List<Crop> findAll() {
     return cropRepository.findAll();
+  }
+
+  public Crop findById(long id) throws CropNotFoundException {
+    return cropRepository.findById(id)
+        .orElseThrow(CropNotFoundException::new);
   }
 }

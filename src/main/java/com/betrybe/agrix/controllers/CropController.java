@@ -1,10 +1,12 @@
 package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.controllers.dto.CropDto;
+import com.betrybe.agrix.exceptions.CropNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.services.CropService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +33,11 @@ public class CropController {
     return crops.stream()
         .map(CropDto::fromEntity)
         .toList();
+  }
+
+  @GetMapping("/{id}")
+  public CropDto findCropById(@PathVariable("id") long id)
+      throws CropNotFoundException {
+    return CropDto.fromEntity(cropService.findById(id));
   }
 }
